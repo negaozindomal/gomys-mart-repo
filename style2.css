@@ -1,0 +1,66 @@
+*CSS DE CADASTRO DA PESSOA FISICA*
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #1a202c;
+    color: #edf2f7;
+    margin: 0;
+    padding: 0;
+}
+
+/* Adicionando efeitos de animação */
+@keyframes pulse-slow {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 2s infinite;
+}
+
+/* Input focus effects */
+.input-focus:focus {
+    border-color: #ef4444;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+.glow-effect {
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.7);
+}
+
+/* Location Pin */
+.location-pin {
+    transform: rotate(-45deg);
+}
+
+/* Password Strength Bar */
+.password-strength {
+    height: 5px;
+    width: 100%;
+    background-color: #4b5563;
+    border-radius: 2px;
+    margin-top: 4px;
+}
+
+.strength-fill {
+    height: 100%;
+    border-radius: 2px;
+}
+
+/* Animations for Icons */
+.market-icon {
+    transition: transform 0.2s ease-in-out;
+}
+
+.market-icon:hover {
+    transform: scale(1.2);
+}
