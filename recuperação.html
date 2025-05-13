@@ -1,0 +1,140 @@
+*HTML DE RECUPERAÇÃO*
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gomys Mart - Recuperar Senha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent animate-pulse-slow"></div>
+    
+    <div class="relative max-w-md w-full bg-black rounded-xl overflow-hidden border border-gray-800 glow-effect">
+        <!-- Header with security icon -->
+        <div class="bg-gradient-to-r from-black to-gray-900 p-6 flex items-center justify-between border-b border-gray-800">
+            <div class="flex items-center space-x-3">
+                <div class="security-icon bg-red-600 text-black p-3 rounded-lg">
+                    <i class="fas fa-shield-alt text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-white">
+                    <span class="text-red-600">Gomys </span>Mart
+                </h1>
+            </div>
+            <div class="text-xs text-gray-400 animate-pulse-slow">
+                RECUPERAR SENHA
+            </div>
+        </div>
+        
+        <!-- Password Recovery Form -->
+        <div class="p-8">
+            <div id="recovery-form">
+                <h2 class="text-2xl font-bold text-white mb-1">Esqueceu sua senha?</h2>
+                <p class="text-gray-400 mb-6">Digite seu e-mail para receber o link de redefinição</p>
+                
+                <form id="password-recovery-form">
+                    <div class="mb-6">
+                        <label for="recovery-email" class="block text-sm font-medium text-gray-300 mb-2">E-mail cadastrado</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-500 envelope-icon"></i>
+                            </div>
+                            <input type="email" id="recovery-email" class="input-focus w-full pl-10 pr-3 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none transition duration-200" placeholder="seu@email.com" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium rounded-lg transition duration-200 transform hover:scale-[1.02] shadow-lg mb-4">
+                        Enviar Link <i class="fas fa-paper-plane ml-1"></i>
+                    </button>
+                    
+                    <div class="text-center mt-4">
+                        <a href="#" class="text-sm text-gray-400 hover:text-red-500 transition duration-200">
+                            <i class="fas fa-arrow-left mr-1"></i> Voltar para login
+                        </a>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Success Message (hidden by default) -->
+            <div id="success-message" class="success-message text-center">
+                <div class="bg-gray-900 p-6 rounded-lg border border-gray-800 mb-6">
+                    <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-check text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">E-mail enviado!</h3>
+                    <p class="text-gray-400 mb-4">Enviamos um link para redefinir sua senha para o e-mail informado.</p>
+                    <p class="text-sm text-gray-500">Não recebeu? <a href="#" class="text-red-500 hover:text-red-400">Reenviar e-mail</a></p>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="#" class="text-sm text-gray-400 hover:text-red-500 transition duration-200">
+                        <i class="fas fa-arrow-left mr-1"></i> Voltar para login
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="px-8 py-4 bg-gray-900 border-t border-gray-800 text-center">
+            <p class="text-gray-400 text-sm">
+                Não tem uma conta? 
+                <a href="#" class="text-red-600 hover:text-red-500 font-medium">Cadastre-se</a>
+            </p>
+        </div>
+        
+        <!-- Decorative elements -->
+        <div class="absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-red-600 opacity-20 blur-xl"></div>
+        <div class="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-red-600 opacity-10 blur-xl"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const recoveryForm = document.getElementById('password-recovery-form');
+            const recoverySection = document.getElementById('recovery-form');
+            const successMessage = document.getElementById('success-message');
+            
+            recoveryForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('recovery-email').value;
+                
+                // Simple email validation
+                if (!email || !email.includes('@') || !email.includes('.')) {
+                    alert('Por favor, insira um e-mail válido.');
+                    return;
+                }
+                
+                // Simulate sending the email (in a real app, you would make an API call here)
+                setTimeout(() => {
+                    // Hide form and show success message
+                    recoverySection.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    successMessage.classList.add('fade-in');
+                    
+                    // In a real app, you would redirect to login or show a timer for resend
+                }, 1000);
+            });
+            
+            // Add pulse animation to the submit button on hover
+            const submitBtn = document.querySelector('#password-recovery-form button[type="submit"]');
+            submitBtn.addEventListener('mouseenter', () => {
+                submitBtn.classList.add('animate-pulse');
+            });
+            submitBtn.addEventListener('mouseleave', () => {
+                submitBtn.classList.remove('animate-pulse');
+            });
+            
+            // Back to login links
+            document.querySelectorAll('a[href="#"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // In a real app, this would redirect to login page
+                    alert('Redirecionando para a página de login...');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
