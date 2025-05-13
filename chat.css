@@ -1,0 +1,275 @@
+*HTML DE CHAT*
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MercadoDivulga - Chat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen">
+    <!-- Top Navigation Bar -->
+    <div class="bg-gradient-to-r from-black to-gray-900 p-4 border-b border-gray-800 flex items-center justify-between sticky top-0 z-10">
+        <!-- Company Logo and Name (Centered) -->
+        <div class="flex items-center space-x-2 mx-auto">
+            <div class="market-icon bg-red-600 text-black p-2 rounded-lg">
+                <i class="fas fa-chart-line text-lg"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-white">
+                <span class="text-red-600">Gomys</span>Mart
+            </h1>
+        </div>
+        
+        <!-- Right Side Icons -->
+        <div class="flex items-center space-x-4 absolute right-4">
+            <!-- Search Button -->
+            <button id="searchButton" class="text-gray-400 hover:text-white transition duration-200">
+                <i class="fas fa-search text-xl"></i>
+            </button>
+            
+            <!-- Profile Button -->
+            <button id="profileButton" class="relative">
+                <div class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span class="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-gray-900"></span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Search Modal (Hidden by default) -->
+    <div id="searchModal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-20 flex items-center justify-center p-4">
+        <div class="w-full max-w-md">
+            <div class="relative">
+                <input type="text" placeholder="Pesquisar conversas..." class="w-full py-4 pl-12 pr-4 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-red-600 transition duration-200">
+                <div class="absolute left-4 top-4 text-gray-500">
+                    <i class="fas fa-search"></i>
+                </div>
+                <button id="closeSearch" class="absolute right-4 top-4 text-gray-500 hover:text-red-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Search Results -->
+            <div class="mt-6 space-y-2 max-h-96 overflow-y-auto">
+                <div class="p-3 bg-gray-900 rounded-lg flex items-center space-x-3 hover:bg-gray-800 cursor-pointer transition duration-200">
+                    <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-400">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-medium">Supermercado Bom Preço</h3>
+                        <p class="text-gray-400 text-sm">Última mensagem: 10 min atrás</p>
+                    </div>
+                </div>
+                
+                <div class="p-3 bg-gray-900 rounded-lg flex items-center space-x-3 hover:bg-gray-800 cursor-pointer transition duration-200">
+                    <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-400">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-medium">João Silva</h3>
+                        <p class="text-gray-400 text-sm">Última mensagem: 1 hora atrás</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Profile Dropdown (Hidden by default) -->
+    <div id="profileDropdown" class="hidden absolute right-4 top-16 mt-2 w-48 bg-gray-900 rounded-lg shadow-lg z-20 border border-gray-800">
+        <div class="p-4 border-b border-gray-800">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center text-white">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <p class="text-white font-medium">Admin</p>
+                    <p class="text-gray-400 text-xs">admin@gomys.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="py-1">
+            <a href="#" class="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white transition duration-200">
+                <i class="fas fa-user-cog mr-2"></i> Meu Perfil
+            </a>
+            <a href="#" class="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white transition duration-200">
+                <i class="fas fa-cog mr-2"></i> Configurações
+            </a>
+            <a href="#" class="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white transition duration-200">
+                <i class="fas fa-sign-out-alt mr-2"></i> Sair
+            </a>
+        </div>
+    </div>
+    
+    <!-- Main Chat Container -->
+    <div class="container mx-auto max-w-6xl flex chat-container">
+        <!-- Left Sidebar - Chat List -->
+        <div class="w-1/3 border-r border-gray-800 bg-gray-900 overflow-y-auto">
+            <div class="p-4 border-b border-gray-800">
+                <h2 class="text-xl font-bold text-white">Conversas</h2>
+                <p class="text-gray-400 text-sm">3 mensagens não lidas</p>
+            </div>
+            
+            <div class="divide-y divide-gray-800">
+                <!-- Chat Item 1 (Active) -->
+                <div class="chat-list-item active-chat p-4 cursor-pointer transition duration-200">
+                    <div class="flex items-center space-x-3">
+                        <div class="relative">
+                            <div class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-red-500">
+                                <i class="fas fa-store text-xl"></i>
+                            </div>
+                            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-600 rounded-full flex items-center justify-center text-white text-xs">3</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-white font-medium truncate">Supermercado Bom Preço</h3>
+                            <p class="text-gray-400 text-sm truncate">Precisamos confirmar seu pedido...</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-gray-500">10 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Item 2 -->
+                <div class="chat-list-item p-4 cursor-pointer transition duration-200">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-blue-500">
+                            <i class="fas fa-user-tie text-xl"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-white font-medium truncate">Distribuidora Alimentos SA</h3>
+                            <p class="text-gray-400 text-sm truncate">Seu pedido foi enviado</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-gray-500">1 h</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Item 3 -->
+                <div class="chat-list-item p-4 cursor-pointer transition duration-200">
+                    <div class="flex items-center space-x-3">
+                        <div class="relative">
+                            <div class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-green-500">
+                                <i class="fas fa-user text-xl"></i>
+                            </div>
+                            <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-600 rounded-full unread-badge"></span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-white font-medium truncate">Maria Oliveira</h3>
+                            <p class="text-gray-400 text-sm truncate">Obrigado pelo atendimento!</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-gray-500">Ontem</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Item 4 -->
+                <div class="chat-list-item p-4 cursor-pointer transition duration-200">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-purple-500">
+                            <i class="fas fa-boxes text-xl"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="text-white font-medium truncate">Fornecedor de Bebidas</h3>
+                            <p class="text-gray-400 text-sm truncate">Promoção esta semana</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xs text-gray-500">2 dias</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Side - Chat Messages -->
+        <div class="flex-1 flex flex-col bg-gray-900">
+            <!-- Chat Header -->
+            <div class="p-4 border-b border-gray-800 flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-red-500">
+                    <i class="fas fa-store text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-white font-medium">Supermercado Bom Preço</h2>
+                    <p class="text-gray-400 text-sm">Online agora</p>
+                </div>
+                <div class="ml-auto flex space-x-2">
+                    <button class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition duration-200">
+                        <i class="fas fa-phone"></i>
+                    </button>
+                    <button class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition duration-200">
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <button class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition duration-200">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Messages Area -->
+            <div class="flex-1 p-4 overflow-y-auto space-y-4">
+                <!-- Received Message -->
+                <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-red-500">
+                        <i class="fas fa-store text-sm"></i>
+                    </div>
+                    <div class="max-w-xs md:max-w-md bg-gray-800 rounded-lg p-3">
+                        <p class="text-white">Olá! Precisamos confirmar seu pedido de hoje. Você poderia verificar os itens?</p>
+                        <p class="text-gray-400 text-xs mt-1">10:15 AM</p>
+                    </div>
+                </div>
+                
+                <!-- Sent Message -->
+                <div class="flex items-start space-x-3 justify-end">
+                    <div class="max-w-xs md:max-w-md bg-red-600 rounded-lg p-3">
+                        <p class="text-white">Claro! Vou verificar agora mesmo.</p>
+                        <p class="text-red-200 text-xs mt-1">10:16 AM</p>
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-blue-500">
+                        <i class="fas fa-user text-sm"></i>
+                    </div>
+                </div>
+                
+                <!-- Received Message -->
+                <div class="flex items-start space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center text-red-500">
+                        <i class="fas fa-store text-sm"></i>
+                    </div>
+                    <div class="max-w-xs md:max-w-md bg-gray-800 rounded-lg p-3">
+                        <p class="text-white">Obrigado! Aqui está a lista:</p>
+                        <div class="mt-2 space-y-1">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-300">Arroz 5kg</span>
+                                <span class="text-gray-300">R$ 18,90</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-300">Feijão Preto</span>
+                                <span class="text-gray-300">R$ 8,90</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat Input Area -->
+            <div class="border-t border-gray-800 p-4 flex items-center space-x-3">
+                <input type="text" placeholder="Escreva sua mensagem..." class="w-full bg-gray-800 text-white placeholder-gray-500 rounded-lg py-3 pl-4 pr-12 focus:outline-none">
+                <button class="text-gray-400 hover:text-white transition duration-200">
+                    <i class="fas fa-paperclip text-xl"></i>
+                </button>
+                <button class="text-gray-400 hover:text-white transition duration-200">
+                    <i class="fas fa-smile text-xl"></i>
+                </button>
+                <button class="text-red-600 hover:text-red-500 transition duration-200">
+                    <i class="fas fa-paper-plane text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
