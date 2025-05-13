@@ -1,0 +1,153 @@
+*HTML DE CADASTRO DA PESSOA FISICA*
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gomys Mart - Cadastro de Usuário</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Referência ao CSS externo -->
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-600 to-transparent animate-pulse-slow"></div>
+    
+    <div class="relative max-w-md w-full bg-black rounded-xl overflow-hidden border border-gray-800 glow-effect">
+        <!-- Header with animated market icon -->
+        <div class="bg-gradient-to-r from-black to-gray-900 p-6 flex items-center justify-between border-b border-gray-800">
+            <div class="flex items-center space-x-3">
+                <div class="market-icon bg-red-600 text-black p-3 rounded-lg">
+                    <i class="fas fa-user-plus text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-white">
+                    <span class="text-red-600">Gomys </span>Mart
+                </h1>
+            </div>
+            <div class="text-xs text-gray-400 animate-pulse-slow">
+                CADASTRO DE CLIENTE
+            </div>
+        </div>
+        
+        <!-- Registration Form -->
+        <div class="p-8">
+            <h2 class="text-2xl font-bold text-white mb-1">Cadastre-se</h2>
+            <p class="text-gray-400 mb-6">Crie sua conta para encontrar os melhores mercados</p>
+            
+            <form id="user-registration-form">
+                <div class="mb-5">
+                    <label for="full-name" class="block text-sm font-medium text-gray-300 mb-2">Nome Completo</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-500"></i>
+                        </div>
+                        <input type="text" id="full-name" class="input-focus w-full pl-10 pr-3 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none transition duration-200" placeholder="Seu nome completo">
+                    </div>
+                </div>
+                
+                <div class="mb-5">
+                    <label for="user-email" class="block text-sm font-medium text-gray-300 mb-2">E-mail</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope text-gray-500"></i>
+                        </div>
+                        <input type="email" id="user-email" class="input-focus w-full pl-10 pr-3 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none transition duration-200" placeholder="seu@email.com">
+                    </div>
+                </div>
+                
+                <div class="mb-5">
+                    <label for="user-phone" class="block text-sm font-medium text-gray-300 mb-2">Telefone</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-phone text-gray-500"></i>
+                        </div>
+                        <input type="tel" id="user-phone" class="input-focus w-full pl-10 pr-3 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none transition duration-200" placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+                
+                <div class="mb-5">
+                    <label for="user-location" class="block text-sm font-medium text-gray-300 mb-2">Sua Localização</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-map-marker-alt text-gray-500 location-pin"></i>
+                        </div>
+                        <input type="text" id="user-location" class="input-focus w-full pl-10 pr-3 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none transition duration-200" placeholder="Digite seu endereço ou CEP">
+                        <button type="button" class="absolute right-3 top-3 text-gray-500 hover:text-gray-300" id="detect-location">
+                            <i class="fas fa-location-arrow"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mb-5">
+                    <label for="user-password" class="block text-sm font-medium text-gray-300 mb-2">Senha</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-500"></i>
+                        </div>
+                        <input type="password" id="user-password" class="input-focus w-full pl-10 pr-3 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none transition duration-200" placeholder="••••••••">
+                        <button type="button" class="absolute right-3 top-3 text-gray-500 hover:text-gray-300 toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-fill" id="user-strength-fill" style="width: 0%; background-color: #ef4444;"></div>
+                    </div>
+                    <div class="text-xs text-gray-500 mt-1" id="user-password-hint">
+                        Use 8 ou mais caracteres com uma mistura de letras, números e símbolos
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="confirm-user-password" class="block text-sm font-medium text-gray-300 mb-2">Confirmar Senha</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-lock text-gray-500"></i>
+                        </div>
+                        <input type="password" id="confirm-user-password" class="input-focus w-full pl-10 pr-3 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-500 focus:outline-none transition duration-200" placeholder="••••••••">
+                        <button type="button" class="absolute right-3 top-3 text-gray-500 hover:text-gray-300 toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center mb-6">
+                    <input id="user-terms" name="user-terms" type="checkbox" class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-800 rounded bg-gray-800">
+                    <label for="user-terms" class="ml-2 block text-sm text-gray-300">
+                        Eu concordo com os <a href="#" class="text-red-600 hover:text-red-500">Termos de Serviço</a> e <a href="#" class="text-red-600 hover:text-red-500">Política de Privacidade</a>
+                    </label>
+                </div>
+                
+                <div class="flex items-center mb-6">
+                    <input id="receive-offers" name="receive-offers" type="checkbox" class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-800 rounded bg-gray-800">
+                    <label for="receive-offers" class="ml-2 block text-sm text-gray-300">
+                        Desejo receber ofertas e promoções por e-mail
+                    </label>
+                </div>
+                
+                <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-medium rounded-lg transition duration-200 transform hover:scale-[1.02] shadow-lg mb-4">
+                    Criar Conta <i class="fas fa-user-plus ml-1"></i>
+                </button>
+                
+                <div class="flex items-center justify-center my-4">
+                    <div class="flex-1 border-t border-gray-800"></div>
+                    <span class="px-3 text-gray-500 text-sm">ou</span>
+                    <div class="flex-1 border-t border-gray-800"></div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <button type="button" class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-lg transition duration-200">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </button>
+                    <button type="button" class="w-full py-3 px-4 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg shadow-lg transition duration-200">
+                        <i class="fab fa-google"></i> Google
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="absolute bottom-0 left-0 w-full bg-gray-800 text-white py-3 text-center">
+        <p>&copy; 2025 Gomys Mart. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
